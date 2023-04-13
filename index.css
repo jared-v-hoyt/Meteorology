@@ -18,3 +18,7 @@ body {
 .state-information {
 	margin: 2rem 14rem;
 }
+
+#logo {
+	display: none;
+}
