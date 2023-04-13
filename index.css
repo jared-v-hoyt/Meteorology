@@ -1,0 +1,20 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+}
+
+body {
+	background-image: url("https://api.windy.com/static/img/light.svg");
+}
+
+#windy {
+	margin: 2rem auto;
+	height: 500px;
+	width: 1000px;
+}
+
+.state-information {
+	margin: 2rem 14rem;
+}

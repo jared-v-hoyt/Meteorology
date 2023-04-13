@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+		/>
+		<link
+			rel="stylesheet"
+			href="index.css"
+		/>
+		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+		<script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+	</head>
+	<body>
+		<div id="windy"></div>
+		<div class="state-information">
+			<h1 class="selected-state"></h1>
+			<div class="state-data"></div>
+		</div>
+		<script
+			type="module"
+			src="data/state_data.js"
+		></script>
+		<script
+			type="module"
+			src="index.js"
+		></script>
+	</body>
+</html>
