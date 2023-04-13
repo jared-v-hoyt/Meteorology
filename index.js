@@ -1,4 +1,10 @@
-import { state_data } from "./data/state_data.js";
+import {
+	state_data
+} from "./data/state_data.js";
+
+import {
+	update_chart
+} from "./chart.js";
 
 let geo_json;
 let parsed_data;
@@ -10,7 +16,9 @@ $.ajax({
 	url: "data/state_capitals.csv",
 	dataType: "text",
 	success: function (data) {
-		parsed_data = Papa.parse(data, { header: true });
+		parsed_data = Papa.parse(data, {
+			header: true
+		});
 	},
 });
 
@@ -25,7 +33,10 @@ function get_capitol_coordinates(state) {
 	});
 
 	if (result) {
-		return { latitude: result.latitude, longitude: result.longitude };
+		return {
+			latitude: result.latitude,
+			longitude: result.longitude
+		};
 	}
 
 	return null;
@@ -36,7 +47,7 @@ function kelvin_to_celcius(temperature_kelvin) {
 }
 
 // Uses the `Point Forecast` API to get the temperature data from the given state capitol
-async function get_capitol_data(capitol) {
+export async function get_capitol_data(capitol) {
 	let my_headers = new Headers();
 
 	my_headers.append("Content-Type", "application/json");
@@ -68,7 +79,7 @@ async function get_capitol_data(capitol) {
 	}
 }
 
-async function get_current_overlay_data(state) {
+export async function get_current_overlay_data(state) {
 	let data = new Array();
 
 	let capitol_data = await get_capitol_data(get_capitol_coordinates(state));
@@ -112,7 +123,7 @@ async function zoom_to_feature(e, map) {
 	map.fitBounds(e.target.getBounds());
 	current_state = e.target.feature.properties.name;
 	const data = await get_current_overlay_data(current_state);
-
+	update_chart(current_state);
 	$(".selected-state").text(current_state);
 	update_data_text(data);
 }
@@ -136,7 +147,9 @@ const options = {
 };
 
 windyInit(options, (windyAPI) => {
-	const { map } = windyAPI;
+	const {
+		map
+	} = windyAPI;
 	const store = windyAPI.store;
 
 	// Listen for changes in the currently selected overlay or layer
