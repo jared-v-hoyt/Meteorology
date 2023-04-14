@@ -35,7 +35,8 @@ function get_capitol_coordinates(state) {
 	if (result) {
 		return {
 			latitude: result.latitude,
-			longitude: result.longitude
+			longitude: result.longitude,
+			capital: result.capital
 		};
 	}
 
@@ -81,7 +82,7 @@ export async function get_capitol_data(capitol) {
 
 export async function get_current_overlay_data(state) {
 	let data = new Array();
-
+	create_weather_data(state);
 	let capitol_data = await get_capitol_data(get_capitol_coordinates(state));
 
 	if (current_overlay === "wind") {
@@ -176,3 +177,24 @@ windyInit(options, (windyAPI) => {
 		},
 	}).addTo(map);
 });
+
+export async function create_weather_data(state) {
+	let capital = get_capitol_coordinates(state);
+	console.log(capital);
+	const response = await fetch("http://api.weatherapi.com/v1/forecast.json?key=920add450c4c4cfe85f154155231404&q=" + capital.capital + "&days=10&aqi=no&alerts=no");
+	const jsonData = await response.json();
+	let forecastArr = jsonData.forecast.forecastday;
+	let arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	let graphing = "avgtemp_c";
+	if (current_overlay === "wind") {
+		graphing = "maxwind_mph";
+	}
+	if (current_overlay === "temp") {
+		graphing = "avgtemp_c";
+	}
+	for (let i = 0; i < forecastArr.length; i++) {
+		arr[i] = forecastArr[i].day[graphing];
+	}
+	console.log(forecastArr);
+	return arr;
+}
