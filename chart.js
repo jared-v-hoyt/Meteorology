@@ -19,11 +19,11 @@ async function get_weather_data(state) {
         day.hour.forEach((hour) => {
           data.wind.push({
             x: hour.time,
-            y: hour.wind_mph,
+            y: hour.wind_kph,
           });
           data.temperature.push({
             x: hour.time,
-            y: hour.temp_f,
+            y: hour.temp_c,
           });
           data.pressure.push({
             x: hour.time,
@@ -50,14 +50,14 @@ export async function update_chart(state) {
       labels: x_axis,
       datasets: [
         {
-          label: "Wind Speed (mph)",
+          label: "Wind Speed (kph)",
           data: data.wind,
           borderColor: "blue",
           fill: false,
           tension: 0.4,
         },
         {
-          label: "Temperature (F)",
+          label: "Temperature (C)",
           data: data.temperature,
           borderColor: "red",
           fill: false,
